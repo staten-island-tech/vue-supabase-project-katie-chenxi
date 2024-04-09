@@ -1,11 +1,10 @@
 <script setup lang="ts">
-/* function warn(message, event){
+function warn(message, event){
   if (event){
     event.preventDefault()
   }
   alert(message)
-} */
-
+}
 </script>
 
 <template>
@@ -20,7 +19,7 @@
     autocomplete="off"
     trim="label"
     class="input_lg"/>
-  <!--  <button type="submit" class="btn btn_primary btn_lg" @click="warn('testing', $event)">Add</button> -->
+    <button type="submit" class="btn btn_primary btn_lg" @click="warn('testing', $event)">Add</button>
 <!-- can alert if set password is too short -->
   </form>
   </main>

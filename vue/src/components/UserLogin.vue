@@ -5,24 +5,15 @@ import { supabase } from '../supabase'
 const loading = ref(false)
 const email = ref('')
 
-const handleSignup = async () => {
-  try {
-    loading.value = true
-    const { data, error } = await supabase.auth.signUp({
+const handleLogin = async () => {
+  try { 
+    const { data, error } = await supabase.auth.signInWithPassword({
     email: 'example@email.com',
     password: 'example-password',
-    options: {
-      data: {
-        first_name: "what",
-        age: 15,
-      }
-    },
   })
-  if (!error) {
-  console.log('User signed up successfully:');
-  }
+
     if (error) throw error
-    alert('Check your email for the login link!')
+    alert('Logged In!')
   } catch (error) {
     if (error instanceof Error) {
       alert(error.message)
@@ -36,7 +27,7 @@ const handleSignup = async () => {
 </script>
 
 <template>
-  <form class="row flex-center flex" @submit.prevent="handleSignup">
+  <form class="row flex-center flex" @submit.prevent="handleLogin">
     <div class="col-6 form-widget">
       <h1 class="header">Sign in</h1>
       <p class="description">Sign in via magic link with your email below</p>

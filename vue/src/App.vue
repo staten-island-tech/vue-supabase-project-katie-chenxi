@@ -22,5 +22,10 @@ onMounted(() => {
   <div class="container" style="padding: 50px 0 100px 0">
     <UserAccount v-if="session" :session="session" />
     <UserAuth v-else />
+    <nav>
+      <RouterLink to="/">Sign Up</RouterLink>
+      <RouterLink to="/">Log In</RouterLink>
+      <RouterLink to="/">Forgot Password</RouterLink>
+    </nav>
   </div>
 </template>

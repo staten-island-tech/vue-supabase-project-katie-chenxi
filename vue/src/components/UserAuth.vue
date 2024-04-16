@@ -1,96 +1,34 @@
 <script setup>
-import { ref } from 'vue'
 import { supabase } from '../supabase'
+import { ref, toRefs } from 'vue'
 
-const loading = ref(false)
-const email = ref('')
-const password = ref('')
-const first_name = ref('')
+const form = ref({
+  name: '',
+  email: '',
+  password: '',
+});
 
-async function signUp(){
-  try {
-    loading.value = true
-    const { user, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
-    options: {
-      data: {
-        first_name: first_name.value,
-        age: 15,
-      }
-    },
-  })
-  if (!error) {
-  console.log('User signed up successfully:');
-  }
-    if (error) {
-      console.log(error)
-    } else {
-      console.log(user)
-    }
+const handleSubmit= async () => {
+  try{
+    const { error } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+    })
+    if (error) throw error
+    alert('Signed Up!')
   } catch (error) {
-    if (error instanceof Error) {
-      alert(error.message)
-    }
-  } finally {
-    loading.value = false
-  }
-}
-
-async function login(){
-  console.log("working")
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
-})
-if(error){
-  console.log(error)
-}else{
-  console.log(data)
-};
-}
-
-async function view() {
-	const localUser = await supabase.auth.getSession();
-	console.log(localUser.data.session)
-}
-
-async function logout() {
-  const { error } = await supabase.auth.signOut()
-
-  if(error){
-    console.log(error)
-  }else{
-    console.log("signed out!!!")
-  }
+    console.error('Error signing up:', error.message);
+  } 
 }
 </script>
 
 <template>
-  <div class="container">
-    <label for="email"> Email: </label>
-		<input type="email" id="email" v-model="email">
-    
-	<div class="inputContainer">
-		<label for="email"> Password: </label>
-		<input type="password" id="password" v-model="password">
-	</div>
-
-	<div class="inputContainer">
-		<label for="firstName"> First Name </label>
-		<input type="firstName" id="firstName" v-model="first_name">
-  </div>
-  <div class="buttons">
-		<button @click="signUp"> Sign Up </button>
-		<button @click="login"> Login </button>
-		<button @click="view"> See user </button>
-		<button @click="logout"> Logout </button>
-	</div>
-</div>
+  <form @submit.prevent="handleSubmit">
+    <h1>Register</h1>
+    <label>Name <input v-model="form.name" type="text" /></label>
+    <label>Email <input v-model="form.email" type="email" /></label>
+    <label>Password <input v-model="form.password" type="password" /></label>
+    <button>Register</button>
+  </form>
 </template>
 
-<style scoped>
-.container{
-  display: flex;
-}
-</style>

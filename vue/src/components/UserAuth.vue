@@ -7,6 +7,34 @@ const email = ref('')
 const password = ref('')
 const first_name = ref('')
 
+
+async function login(){
+  console.log("working")
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value,
+})
+if(error){
+  console.log(error)
+}else{
+  console.log(data)
+};
+}
+
+async function view() {
+	const localUser = await supabase.auth.getSession();
+	console.log(localUser.data.session)
+}
+
+async function logout() {
+  const { error } = await supabase.auth.signOut()
+
+  if(error){
+    console.log(error)
+  }else{
+    console.log("signed out!!!")
+  }
+}
 async function signUp(){
   try {
     loading.value = true
@@ -34,34 +62,6 @@ async function signUp(){
     }
   } finally {
     loading.value = false
-  }
-}
-
-async function login(){
-  console.log("working")
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
-})
-if(error){
-  console.log(error)
-}else{
-  console.log(data)
-};
-}
-
-async function view() {
-	const localUser = await supabase.auth.getSession();
-	console.log(localUser.data.session)
-}
-
-async function logout() {
-  const { error } = await supabase.auth.signOut()
-
-  if(error){
-    console.log(error)
-  }else{
-    console.log("signed out!!!")
   }
 }
 </script>

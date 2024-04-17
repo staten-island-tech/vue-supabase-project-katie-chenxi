@@ -67,6 +67,7 @@ async function logout() {
 </script>
 
 <template>
+  <main class="bg">
   <div class="container">
     <label for="email"> Email: </label>
 		<input type="email" id="email" v-model="email">
@@ -81,16 +82,18 @@ async function logout() {
 		<input type="firstName" id="firstName" v-model="first_name">
   </div>
   <div class="buttons">
-		<button @click="signUp"> Sign Up </button>
 		<button @click="login"> Login </button>
+    <button @click="signUp"> Sign Up </button>
 		<button @click="view"> See user </button>
 		<button @click="logout"> Logout </button>
 	</div>
 </div>
+</main>
 </template>
 
 <style scoped>
 .container{
   display: flex;
 }
+
 </style>

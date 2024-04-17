@@ -10,12 +10,12 @@ const form = ref({
 
 const handleSubmit= async () => {
   try{
-    const { error } = await supabase.auth.signUp({
-      email: form.email,
-      password: form.password,
+    const { user, error } = await supabase.auth.signUp({
+      email: form.email.value,
+      password: form.password.value,
+    
     })
-    if (error) throw error
-    alert('Signed Up!')
+    if (!error) alert('Signed Up!' && console.log(user))
   } catch (error) {
     console.error('Error signing up:', error.message);
   } 

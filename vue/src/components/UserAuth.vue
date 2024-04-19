@@ -6,25 +6,25 @@ const loading = ref(false)
 
 const email = ref('')
 const password = ref('')
-const username = ref('')
+const name = ref('')
 
 const handleSubmit= async () => {
   try{
     loading.value = true
-    const { user, error } = await supabase.auth.signUp({
+    const data = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
       options:{
         data: {
-          username: username.value
+          name: name.value
         }
       }
     
     })
     await supabase
-      .from("personal")
-      .insert({ password: password.value, email: email.value})
-    if (!error) alert('Signed Up!' && console.log(user))
+      .from("profiles")
+      .insert({password: password.value, email: email.value})
+     console.log(data)
   } catch (error) {
     console.error('Error signing up:', error.message);
   } finally {

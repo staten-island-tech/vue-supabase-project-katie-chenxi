@@ -20,7 +20,13 @@ onMounted(() => {
 
 <template>
   <div class="container" style="padding: 50px 0 100px 0">
+    <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/Create">Create</RouterLink>
+        <RouterLink to="/Profile">Profile</RouterLink>
+      </nav>
     <UserAccount v-if="session" :session="session" />
+    
     <UserAuth v-else />
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { supabase } from '../supabase'
+import { supabase } from '../supabase.js'
 import { ref } from 'vue'
 
 const loading = ref(false)
@@ -11,7 +11,7 @@ const name = ref('')
 const handleSubmit= async () => {
   try{
     loading.value = true
-    const data = await supabase.auth.signUp({
+    const {user, error} = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
       options:{
@@ -21,14 +21,15 @@ const handleSubmit= async () => {
       }
     
     })
+
     await supabase
-      .from("profiles")
-      .insert({password: password.value, email: email.value})
-     console.log(data)
+      .from('profiles')
+      .insert({uuid: user.data.user.id, password: password.value, email: email.value})
+     console.log("Succesful: ", user)
   } catch (error) {
     console.error('Error signing up:', error.message);
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 //https://supabase.com/docs/guides/getting-started/tutorials/with-vue-3

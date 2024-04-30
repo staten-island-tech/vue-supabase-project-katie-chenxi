@@ -11,7 +11,7 @@ const name = ref('')
 const handleSubmit= async () => {
   try{
     loading.value = true
-    const {user, error} = await supabase.auth.signUp({
+    const user = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
       options:{
@@ -27,7 +27,7 @@ const handleSubmit= async () => {
       .insert({uuid: user.data.user.id, password: password.value, email: email.value})
      console.log("Succesful: ", user)
   } catch (error) {
-    console.error('Error signing up:', error.message);
+    console.error('Error signing up:', user.message);
   } finally {
     loading.value = false;
   }

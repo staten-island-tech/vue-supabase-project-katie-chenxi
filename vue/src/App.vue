@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import UserAccount from './components/UserAccount.vue'
 import UserAuth from './components/UserAuth.vue'

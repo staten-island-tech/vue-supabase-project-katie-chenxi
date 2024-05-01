@@ -32,7 +32,7 @@ const handleSubmit= async () => {
     loading.value = false;
   }
 }
-//https://supabase.com/docs/guides/getting-started/tutorials/with-vue-3
+
 </script>
 
 <template>

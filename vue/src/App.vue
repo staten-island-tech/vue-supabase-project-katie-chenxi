@@ -24,7 +24,7 @@ onMounted(() => {
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/Create">Create</RouterLink>
         <RouterLink to="/Profile">Profile</RouterLink>
-         <RouterLink to="/LogIn">LogIn</RouterLink>
+ <!--         <RouterLink to="/LogIn">LogIn</RouterLink> -->
       </nav>
     <UserAccount v-if="session" :session="session" />
     

@@ -21,11 +21,7 @@ const handleSubmit= async () => {
       }
     
     })
-
-    await supabase
-      .from('profiles')
-      .insert({ password: password.value, email: email.value})
-     console.log("Succesful: ", user)
+    console.log("Succesful: ", user)
   } catch (error) {
     console.error('Error signing up:', user.message);
   } finally {

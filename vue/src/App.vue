@@ -26,8 +26,8 @@ onMounted(() => {
         <RouterLink to="/Profile">Profile</RouterLink>
  <!--         <RouterLink to="/LogIn">LogIn</RouterLink> -->
       </nav>
-    <UserAccount v-if="session" :session="session" />
+        <UserAccount v-if="session" :session="session" />
     
-    <UserAuth v-else />
+        <UserAuth v-else />
   </div>
 </template>

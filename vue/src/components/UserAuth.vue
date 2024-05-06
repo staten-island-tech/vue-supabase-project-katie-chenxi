@@ -2,6 +2,7 @@
 import { supabase } from '../supabase.js'
 import { ref } from 'vue'
 
+
 const loading = ref(false)
 
 const email = ref('')
@@ -28,6 +29,7 @@ const handleSubmit= async () => {
     loading.value = false;
   }
 }
+
 
 </script>
 

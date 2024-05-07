@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import UserAccount from './components/UserAccount.vue'
 import UserAuth from './components/UserAuth.vue'
@@ -20,7 +20,14 @@ onMounted(() => {
 
 <template>
   <div class="container" style="padding: 50px 0 100px 0">
+    <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/Create">Create</RouterLink>
+        <RouterLink to="/Profile">Profile</RouterLink>
+ <!--         <RouterLink to="/LogIn">LogIn</RouterLink> -->
+      </nav>
     <UserAccount v-if="session" :session="session" />
+    
     <UserAuth v-else />
   
   </div>

@@ -1,24 +1,36 @@
 <script setup>
-import { supabase } from '../supabase'
-import { ref, toRefs } from 'vue'
+import { supabase } from '../supabase.js'
+import { ref } from 'vue'
 
-const form = ref({
-  name: '',
-  email: '',
-  password: '',
-});
+const loading = ref(false)
+
+const email = ref('')
+const password = ref('')
+const name = ref('')
 
 const handleSubmit= async () => {
   try{
-    const { error } = await supabase.auth.signUp({
-      email: form.email,
-      password: form.password,
+    loading.value = true
+    const user  = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value,
+      options:{
+        data: {
+          name: name.value
+        }
+      }
+    
     })
-    if (error) throw error
-    alert('Signed Up!')
+
+    await supabase
+      .from('profiles')
+      .insert({ password: password.value, email: email.value})
+     console.log("Succesful: ", user)
   } catch (error) {
-    console.error('Error signing up:', error.message);
-  } 
+    console.error('Error signing up:', user.message);
+  } finally {
+    loading.value = false;
+  }
 }
 
 </script>
@@ -26,12 +38,16 @@ const handleSubmit= async () => {
 <template>
   <form @submit.prevent="handleSubmit">
     <h1>Register</h1>
-    <label>Name <input v-model="form.name" type="text" class="form" /></label>
-    <label>Email <input v-model="form.email" type="email" class="form"/></label>
-    <label>Password <input v-model="form.password" type="password" class="form" /></label>
-    <button>Register</button>
+    <label>Email <input v-model="email" required type="email" /></label>
+    <label>Password <input v-model="password" required type="password" /></label>
+    <div>
+        <input
+          type="submit"
+          class="button block"
+          :value="loading ? 'Loading' : 'Sign Up'"
+          :disabled="loading"
+        />
+      </div>
   </form>
-
-  
 </template>
 

@@ -7,7 +7,7 @@ body {
   --custom-panel-color: #ba4646;
   --custom-box-shadow: 0 2px 8px 0 rgba(217, 73, 150, 0.8);
   --custom-color: #f260a9;
-  --custom-color-brand: #24b47e;
+  --custom-color-brand: #af24b4;
   --custom-color-secondary: #f260a9;
   --custom-border: 1px solid #c5559a;
   --custom-border-radius: 5px;
@@ -19,12 +19,12 @@ body {
   background-color: var(--custom-bg-color);
 }
 
-button{
+.button-block{
   transition: 0.5s;
   animation: wiggle 2s linear infinite;
 }
 
-button:hover {
+.button-block:hover {
   background-color: rgb(250, 184, 195);
   transform: scale(1.05);
 }

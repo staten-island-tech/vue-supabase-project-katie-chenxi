@@ -1,77 +1,42 @@
+<template>
+  <h1>Hi!</h1>
+  <form @submit.prevent="handleSubmit">
+    <h1>Create Post</h1>
+    <label>Title: <input v-model="title" required type="title" /></label>
+    <label>Description: <input v-model="description" required type="description" /></label>
+    <div>
+      <input type="submit" class="button block" />
+    </div>
+  </form>
+</template>
+
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue'
-import { supabase } from '../supabase'
+import { supabase } from '../supabase.js'
+import { ref } from 'vue'
 
-const prop = defineProps(['path', 'size'])
-const { path, size } = toRefs(prop)
+const title = ref('')
+const description = ref('')
 
-const emit = defineEmits(['upload', 'update:path'])
-const uploading = ref(false)
-const src = ref('')
-const files = ref()
-
-const downloadImage = async () => {
+const handleSubmit = async () => {
   try {
-    const { data, error } = await supabase.storage.from('avatars').download(path.value)
-    if (error) throw error
-    src.value = URL.createObjectURL(data)
-  } catch (error) {
-    console.error('Error downloading image: ', error.message)
-  }
-}
+    const tableName = 'posts';
 
-const uploadAvatar = async (evt) => {
-  files.value = evt.target.files
-  try {
-    uploading.value = true
-    if (!files.value || files.value.length === 0) {
-      throw new Error('You must select an image to upload.')
+    const dataToPost = {
+      description: 'description',
+      title: 'title',
+    };
+
+    async function postData() {
+      const { data } = await supabase.from(tableName).upsert([dataToPost]);
+
+      console.log('Data posted successfully:', data);
     }
 
-    const file = files.value[0]
-    const fileExt = file.name.split('.').pop()
-    const filePath = `${Math.random()}.${fileExt}`
-
-    const { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
-
-    if (uploadError) throw uploadError
-    emit('update:path', filePath)
-    emit('upload')
-  } catch (error) {
-    alert(error.message)
-  } finally {
-    uploading.value = false
+    postData();
+  }
+    catch (error) {
+    console.error('Error posting:', error);
   }
 }
-
-watch(path, () => {
-  if (path.value) downloadImage()
-})
 </script>
 
-<template>
-  <div>
-    <img
-      v-if="src"
-      :src="src"
-      alt="Avatar"
-      class="avatar image"
-      :style="{ height: size + 'em', width: size + 'em' }"
-    />
-    <div v-else class="avatar no-image" :style="{ height: size + 'em', width: size + 'em' }" />
-
-    <div :style="{ width: size + 'em' }">
-      <label class="button primary block" for="single">
-        {{ uploading ? 'Uploading ...' : 'Upload' }}
-      </label>
-      <input
-        style="visibility: hidden; position: absolute"
-        type="file"
-        id="single"
-        accept="image/*"
-        @change="uploadAvatar"
-        :disabled="uploading"
-      />
-    </div>
-  </div>
-</template>

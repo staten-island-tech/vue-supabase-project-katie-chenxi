@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import UserAccount from './components/UserAccount.vue'
+import UserLogin from './components/UserLogin.vue'
 import UserAuth from './components/UserAuth.vue'
 import { supabase } from './supabase'
 
@@ -26,8 +26,7 @@ onMounted(() => {
         <RouterLink to="/Profile">Profile</RouterLink>
         <RouterLink to="/LogIn">LogIn</RouterLink>
       </nav>
-        <UserAccount v-if="session" :session="session" />
-    
-        <UserAuth v-else />
+    <UserAuth/>
+    <UserLogin/>
   </div>
 </template>

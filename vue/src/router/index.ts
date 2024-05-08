@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from "@/stores/authStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: HomeView
+      component: HomeView,
+      beforeEnter: (to) => {
+        const authStore = useAuthStore();
+        const isAuthenticated = authStore.isAuthenticated;
+
+        if (!isAuthenticated && to.name !== "login-adm") {
+          return { name: "login-adm" };
+        }
+      }
     },
     {
       path: '/Create',

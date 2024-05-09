@@ -2,6 +2,7 @@
 import { supabase } from '../supabase.js'
 import { ref } from 'vue'
 
+
 const loading = ref(false)
 
 const email = ref('')
@@ -21,17 +22,14 @@ const handleSubmit= async () => {
       }
     
     })
-
-    await supabase
-      .from('profiles')
-      .insert({ password: password.value, email: email.value})
-     console.log("Succesful: ", user)
+    console.log("Succesful: ", user)
   } catch (error) {
     console.error('Error signing up:', user.message);
   } finally {
     loading.value = false;
   }
 }
+
 
 </script>
 

@@ -36,12 +36,12 @@ const handleSubmit= async () => {
 <template>
   <form @submit.prevent="handleSubmit">
     <h1>Register</h1>
-    <label>Email <input v-model="email" required type="email" /></label>
-    <label>Password <input v-model="password" required type="password" /></label>
+    <label>Email <input v-model="form.email" required type="email" class="form"/></label>
+    <label>Password <input v-model="form.password" required type="password" class="form"/></label>
     <div>
         <input
           type="submit"
-          class="button block"
+          class="button"
           :value="loading ? 'Loading' : 'Sign Up'"
           :disabled="loading"
         />

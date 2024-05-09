@@ -19,17 +19,22 @@ body {
   background-color: var(--custom-bg-color);
 }
 
-.button-block{
+.button{
   transition: 0.5s;
-  animation: wiggle 2s linear infinite;
+  animation: wiggle 5s linear infinite;
 }
 
-.button-block:hover {
-  background-color: rgb(250, 184, 195);
+.button:hover {
+  background-color: rgb(252, 161, 177);
+
+}
+input:hover{
+  background-color: rgb(254, 193, 204);
   transform: scale(1.05);
 }
-.form:hover{
-  background-color: rgb(255, 206, 215);
+
+input{
+  transition: .2s;
 }
 
 @keyframes wiggle {

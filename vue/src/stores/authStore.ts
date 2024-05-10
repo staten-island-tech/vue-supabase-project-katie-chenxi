@@ -1,7 +1,7 @@
 // authStore.js
 import { defineStore } from "pinia";
 
-export const userUserStore = defineStore("UserStore", {
+export const useUserStore = defineStore("UserStore", {
   state: () => {
     return {
         // for initially empty lists

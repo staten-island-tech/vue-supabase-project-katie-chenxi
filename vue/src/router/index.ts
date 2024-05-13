@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import { useAuthStore } from "@/stores/authStore";
+import { useUserStore } from "@/stores/authStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,7 +32,7 @@ const router = createRouter({
     {
       path: '/LogIn',
       name: 'LogIn',
-      component: () => import('../views/UserLogin.vue')
+      component: () => import('../views/LoginView.vue')
     },
  ]
 
@@ -42,9 +43,9 @@ router.beforeEach((to,from,next)=> {
   if(to.matched.some((record) => record.meta.requireLogin) && 
   auth.userList === null)
  {
-  next('/');
- } else{
   next('/LogIn');
+ } else{
+  next('/');
  }
 });
   

@@ -26,7 +26,6 @@ onMounted(() => {
         <RouterLink to="/Profile">Profile</RouterLink>
         <RouterLink to="/LogIn">LogIn</RouterLink>
       </nav>
-    <UserAuth/>
-    <UserLogin/>
   </div>
+  
 </template>

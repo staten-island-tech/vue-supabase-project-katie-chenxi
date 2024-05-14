@@ -1,28 +1,50 @@
 // authStore.js
 import { defineStore } from "pinia";
 
-export const useUserStore = defineStore("UserStore", {
-  state: () => {
+interface State {
+  userList: UserInfo[]
+  user: UserInfo | null
+}
+
+export const useAuthStore = defineStore('auth', {
+  state: (): State => {
     return {
-        // for initially empty lists
-      userList: [] as UserInfo[],
-        // for data that is not yet loaded
-      user: null as UserInfo | null,
+      userList: [],
+      user: null,
     }
   },
-});
+  actions: {
+    loadUser() {
+      this.user = supabase.auth.user();
+    },
+    clearUser() {
+      this.user = null;
+    }
+    },
+    getters: {
+      isAuthenticated(state) {
+        return !!state.user;
+      }
+    }
+})
+
+interface UserInfo {
+  name: string
+  age: number
+}
     
 
-
-export const useAuthStore = defineStore("AuthStore", {
+/* 
+export const u = defineStore("AuthStore", {
   state: () => ({
    isAuthenticated: false,
   }),
 });
+     */
     
-    
-    interface UserInfo {
+   /*  interface UserInfo {
       password: string
       email: string
     }
 
+ */

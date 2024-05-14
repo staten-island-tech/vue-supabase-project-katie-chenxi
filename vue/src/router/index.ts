@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
 import { useAuthStore } from "@/stores/authStore";
-import { useUserStore } from "@/stores/authStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: HomeView,
+      component: () => import('../views/HomeView.vue'),
       beforeEnter: (to) => {
         const authStore = useAuthStore();
         const isAuthenticated = authStore.isAuthenticated;
@@ -41,12 +39,21 @@ const router = createRouter({
 router.beforeEach((to,from,next)=> {
   const auth = useAuthStore();
   if(to.matched.some((record) => record.meta.requireLogin) && 
-  auth.userList === null)
+  auth.user === null)
  {
-  next('/LogIn');
+  next('/Login');
  } else{
   next('/');
  }
 });
-  
+
+
+/* router.beforeEach((to) => {
+  // ✅ This will work because the router starts its navigation after
+  // the router is installed and pinia will be installed too
+  const store = useStore()
+
+  if (to.meta.requiresAuth && !store.isLoggedIn) return '/login'
+})
+   */
 export default router

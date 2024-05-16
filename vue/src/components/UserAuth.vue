@@ -1,4 +1,5 @@
 <script setup>
+import { storeToRefs } from 'pinia';
 import { supabase } from '../supabase.js'
 import { ref } from 'vue'
 
@@ -12,7 +13,7 @@ const name = ref('')
 const handleSubmit= async () => {
   try{
     loading.value = true
-    const user  = await supabase.auth.signUp({
+    const {user, session, error}  = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
       options:{
@@ -21,10 +22,16 @@ const handleSubmit= async () => {
         }
       }
     
-    })
-    console.log("Succesful: ", user)
+    });
+    if (error) {
+      console.log(error)
+    } else{
+      store.user = user;
+      router.push({path: '/'})
+      console.log("Succesful: ", user)
+    }
   } catch (error) {
-    console.error('Error signing up:', user.message);
+    console.error('Error signing up:', error);
   } finally {
     loading.value = false;
   }

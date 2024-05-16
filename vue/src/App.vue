@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import UserLogin from './components/UserLogin.vue'
-import UserAuth from './components/UserAuth.vue'
 import { supabase } from './supabase'
 
 const session = ref()
@@ -27,5 +25,7 @@ onMounted(() => {
         <RouterLink to="/LogIn">LogIn</RouterLink>
       </nav>
   </div>
-  
+  <<router-view>
+    
+  </router-view>  
 </template>

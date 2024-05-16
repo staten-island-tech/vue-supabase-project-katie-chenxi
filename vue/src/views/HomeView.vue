@@ -1,13 +1,21 @@
-<template>
-	<div>
-<h2>Hello</h2>
-	</div>
-</template>
-
 <script setup>
-
+import UserLogin from '../components/UserLogin.vue'
 </script>
 
-<style scoped>
+<template>
+	<h2>Log In</h2>
+	<UserLogin></UserLogin>
+</template>
 
+<style scoped>
+.buttonContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 1em;
+}
+
+button {
+	margin-bottom: 1em;
+	padding: 1em 2em 1em 2em;
+}
 </style>

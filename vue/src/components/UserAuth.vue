@@ -1,5 +1,4 @@
 <script setup>
-import { storeToRefs } from 'pinia';
 import { supabase } from '../supabase.js'
 import { ref } from 'vue'
 
@@ -27,7 +26,7 @@ const handleSubmit= async () => {
       console.log(error)
     } else{
       store.user = user;
-      router.push({path: '/'})
+      router.push({path: '/Profile'})
       console.log("Succesful: ", user)
     }
   } catch (error) {

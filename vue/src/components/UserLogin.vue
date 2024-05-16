@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { supabase } from '../supabase'
+import { useAuthStore } from "@/stores/authStore";
 
+const authStore = useAuthStore();
+const { isAuthenticated } = authStore;
 const loading = ref(false)
 const email = ref('')
 
@@ -27,10 +30,11 @@ const handleLogin = async () => {
 </script>
 
 <template>
+  <div v-if="isAuthenticated">User is authenticated!</div>
+  <div v-else>Not authenticated.</div>
   <form class="row flex-center flex" @submit.prevent="handleLogin">
     <div class="col-6 form-widget">
       <h1 class="header">Sign in</h1>
-      <p class="description">Sign in via magic link with your email below</p>
       <div>
         <input class="inputField" required type="email" placeholder="Your email" v-model="email" />
       </div>

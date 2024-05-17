@@ -419,13 +419,13 @@ button.primary,
   align-items: center;
   justify-content: center;
   border: none;
-  background-color: #444444;
+  background-color: rgb(255, 204, 214);
   text-transform: none !important;
   transition: all 0.2s ease;
 }
 
 .form-widget .button:hover {
-  background-color: #2a2a2a;
+  background-color: rgb(255, 204, 214);
 }
 
 .form-widget .button > .loader {

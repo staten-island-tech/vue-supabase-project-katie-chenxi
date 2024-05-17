@@ -1,10 +1,7 @@
 <script setup>
-import UserLogin from '../components/UserLogin.vue'
 </script>
 
 <template>
-	<h2>Log In</h2>
-	<UserLogin></UserLogin>
 </template>
 
 <style scoped>

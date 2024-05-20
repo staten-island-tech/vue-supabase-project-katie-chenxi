@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 
 const loading = ref(false)
-const showLogin = ref(true)
+const showLogin = ref(false)
 const email = ref('')
 const password = ref('')
 const name = ref('')
@@ -28,6 +28,7 @@ const handleSubmit= async () => {
       store.user = user;
       router.push({path: '/Profile'})
       console.log("Succesful: ", user)
+      showLogin.value = true;
     }
   } catch (error) {
     console.error('Error signing up:', error);
@@ -86,6 +87,7 @@ async function logout() {
         />
       </div>
   </form>
+  <button @click="showLogin = false">Don't Have An Account?</button>
 </div>
 <div v-else>
   <form @submit.prevent="handleSubmit">
@@ -101,6 +103,7 @@ async function logout() {
         />
       </div>
   </form>
+  <button @click="showLogin = true">Already Have an Account?</button>
 </div>
 </template>
 

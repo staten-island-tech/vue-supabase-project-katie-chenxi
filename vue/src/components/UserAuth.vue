@@ -1,8 +1,9 @@
 <script setup>
 import { supabase } from '../supabase.js'
 import { ref } from 'vue'
+import { useAuthStore } from "@/stores/authStore";
 
-
+const store = useAuthStore();
 const loading = ref(false)
 const showLogin = ref(false)
 const email = ref('')
@@ -26,7 +27,7 @@ const handleSubmit= async () => {
       console.log(error)
     } else{
       store.user = user;
-      router.push({path: '/Profile'})
+      //router.push({path: '/Profile'})
       console.log("Succesful: ", user)
       showLogin.value = true;
     }

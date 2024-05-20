@@ -3,7 +3,7 @@ import UserAuth from '../components/UserAuth.vue'
 </script>
 
 <template>
-	<h2>Log In</h2>
+
 	<UserAuth></UserAuth>
 </template>
 

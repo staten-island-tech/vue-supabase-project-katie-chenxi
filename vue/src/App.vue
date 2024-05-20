@@ -25,7 +25,7 @@ onMounted(() => {
         <RouterLink to="/LogIn">LogIn</RouterLink>
       </nav>
   </div>
-  <<router-view>
+  <router-view>
     
   </router-view>  
 </template>

@@ -1,5 +1,6 @@
 // authStore.js
 import { defineStore } from "pinia";
+import { supabase } from '../supabase.js'
 
 interface State {
   userList: UserInfo[]

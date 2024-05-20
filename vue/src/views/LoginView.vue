@@ -1,12 +1,10 @@
 <script setup>
 import UserAuth from '../components/UserAuth.vue'
-import UserLogin from '../components/UserLogin.vue'
 </script>
 
 <template>
 	<h2>Log In</h2>
-	<UserLogin></UserLogin>
-	<button @click={UserAuth}> SignUp </button>
+	<UserAuth></UserAuth>
 </template>
 
 <style scoped>

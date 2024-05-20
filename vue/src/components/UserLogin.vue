@@ -7,23 +7,38 @@ const authStore = useAuthStore();
 const { isAuthenticated } = authStore;
 const loading = ref(false)
 const email = ref('')
+const password = ref('')
 
-const handleLogin = async () => {
-  try { 
-    const { data, error } = await supabase.auth.signInWithPassword({
-    email: 'example@email.com',
-    password: 'example-password',
-  })
+async function login() {
+	const { data, error } = await supabase.auth.signInWithPassword({
+		email: email.value,
+		password: password.value
+	})
+	if (error)
+	{
+		console.log(error);
+	}
+	else
+	{
+		console.log(data);
+	}
+    loading.value = false;
+}
 
-    if (error) throw error
-    alert('Logged In!')
-  } catch (error) {
-    if (error instanceof Error) {
-      alert(error.message)
-    }
-  } finally {
-    loading.value = false
-  }
+async function seeUser() {
+	const localUser = await supabase.auth.getSession();
+	console.log(localUser.data.session)
+}
+
+async function logout() {
+	const { error } = await supabase.auth.signOut();
+
+	if (error) {
+		console.log(error);
+	}
+	else {
+		console.log("Sign out success")
+	}
 }
 
 
@@ -32,17 +47,18 @@ const handleLogin = async () => {
 <template>
   <div v-if="isAuthenticated">User is authenticated!</div>
   <div v-else>Not authenticated.</div>
-  <form class="row flex-center flex" @submit.prevent="handleLogin">
+  <form class="row flex-center flex" @submit.prevent="login">
     <div class="col-6 form-widget">
       <h1 class="header">Sign in</h1>
       <div>
         <input class="inputField" required type="email" placeholder="Your email" v-model="email" />
+        <input class="inputField" required type="password" placeholder="Your password" v-model="password" />
       </div>
       <div>
         <input
           type="submit"
           class="button block"
-          :value="loading ? 'Loading' : 'Send magic link'"
+          :value="loading ? 'Loading' : 'doing it'"
           :disabled="loading"
         />
       </div>

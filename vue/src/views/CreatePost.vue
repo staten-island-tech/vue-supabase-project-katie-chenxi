@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { viewDepthKey } from 'vue-router';
 import { supabase }  from '../supabase.js'
 import { ref } from 'vue'
 
@@ -33,7 +32,7 @@ const handleSubmit = async () => {
     async function postVideo() {
       const { data } = await supabase
       .storage
-      .updateBucket('videos' {
+      .updateBucket('videos', {
       public: false,
       allowedMimeTypes: ['image/png'],
       fileSizeLimit: 1024

@@ -74,7 +74,7 @@ async function logout() {
 </script>
 
 <template>
-   <div v-if="showLogin">
+   <div v-if="showLogin" class = "authCont">
     <form @submit.prevent="login">
     <h1>Log In</h1>
     <label>Email <input v-model="email" /></label>
@@ -87,10 +87,10 @@ async function logout() {
           :disabled="loading"
         />
       </div>
+      <button @click="showLogin = false">Don't Have An Account?</button>
   </form>
-  <button @click="showLogin = false">Don't Have An Account?</button>
 </div>
-<div v-else>
+<div v-else class = "authCont">
   <form @submit.prevent="handleSubmit">
     <h1>Register</h1>
     <label>Email <input v-model="email" class="form"/></label>
@@ -103,8 +103,15 @@ async function logout() {
           :disabled="loading"
         />
       </div>
+       <button @click="showLogin = true">Already Have an Account?</button>
   </form>
-  <button @click="showLogin = true">Already Have an Account?</button>
 </div>
 </template>
 
+<style scoped>
+.authCont{
+  justify-content: space-between;
+  margin: 1em;
+  flex-direction: column;
+}
+</style>

@@ -77,8 +77,8 @@ async function logout() {
    <div v-if="showLogin">
     <form @submit.prevent="login">
     <h1>Log In</h1>
-    <label>Email <input v-model="email" required type="email" /></label>
-    <label>Password <input v-model="password" required type="password" /></label>
+    <label>Email <input v-model="email" /></label>
+    <label>Password <input v-model="password" /></label>
     <div>
         <input
           type="submit"

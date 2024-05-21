@@ -8,14 +8,14 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: () => import('../views/HomeView.vue'),
-     /*  beforeEnter: (to) => {
+      beforeEnter: (to) => {
         const authStore = useAuthStore();
         const isAuthenticated = authStore.isAuthenticated;
 
         if (!isAuthenticated && to.name !== "login-adm") {
           return { name: "login-adm" };
         }
-      } */
+      } 
     },
     {
       path: '/Create',

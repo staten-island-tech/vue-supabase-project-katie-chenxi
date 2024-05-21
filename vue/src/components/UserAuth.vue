@@ -93,8 +93,8 @@ async function logout() {
 <div v-else>
   <form @submit.prevent="handleSubmit">
     <h1>Register</h1>
-    <label>Email <input v-model="form.email" required type="email" class="form"/></label>
-    <label>Password <input v-model="form.password" required type="password" class="form"/></label>
+    <label>Email <input v-model="email" class="form"/></label>
+    <label>Password <input v-model="password" class="form"/></label>
     <div>
         <input
           type="submit"

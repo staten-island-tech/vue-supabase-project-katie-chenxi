@@ -87,8 +87,8 @@ async function logout() {
           :disabled="loading"
         />
       </div>
-      <button @click="showLogin = false">Don't Have An Account?</button>
   </form>
+  <button @click="showLogin = false">Don't Have An Account?</button>
 </div>
 <div v-else class = "authCont">
   <form @submit.prevent="handleSubmit">
@@ -103,8 +103,8 @@ async function logout() {
           :disabled="loading"
         />
       </div>
-       <button @click="showLogin = true">Already Have an Account?</button>
   </form>
+  <button @click="showLogin = true">Already Have an Account?</button>
 </div>
 </template>
 

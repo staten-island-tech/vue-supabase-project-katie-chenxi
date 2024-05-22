@@ -8,13 +8,16 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: () => import('../views/HomeView.vue'),
-      beforeEnter: (to) => {
+      beforeEnter: (to, from, next) => {
         const authStore = useAuthStore();
         const isAuthenticated = authStore.isAuthenticated;
 
-        if (!isAuthenticated && to.name !== "login-adm") {
-          return { name: "login-adm" };
+        if (isAuthenticated) {
+          next("/");
+        } else {
+          next('/LogIn');
         }
+
       } 
     },
     {
@@ -42,11 +45,11 @@ const router = createRouter({
     if (to.path !== '/Login') {
       next('/Login'); // Redirect to login only if not already on the login page
     } else {
-      next(); // Allow navigation to the login page
+      next(); 
     }
-  } else {
+ } else {
     next(); // Proceed with the navigation
-  }
+  } 
 });
 
 /* router.beforeEach((to) => {

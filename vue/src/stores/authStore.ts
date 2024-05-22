@@ -3,8 +3,9 @@ import { defineStore } from "pinia";
 import { supabase } from '../supabase.js'
 
 interface State {
-  userList: UserInfo[]
-  user: UserInfo | null
+  userList: UserInfo[];
+  user: UserInfo | null;
+  Authenticated: boolean;
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -12,19 +13,23 @@ export const useAuthStore = defineStore('auth', {
     return {
       userList: [],
       user: null,
+      Authenticated: false,
     }
   },
   actions: {
-    loadUser() {
-      this.user = supabase.auth.user(); 
+    async loadUser() {
+      const user = await supabase.auth.user();
+      this.user = user;
+      this.Authenticated = !!user;
     },
     clearUser() {
       this.user = null;
+      this.Authenticated = false; 
     }
     },
     getters: {
       isAuthenticated(state) {
-        return !!state.user;
+        return state.Authenticated;
       }
     }
 })

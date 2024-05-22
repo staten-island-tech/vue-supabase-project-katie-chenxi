@@ -1,5 +1,6 @@
 // authStore.js
 import { defineStore } from "pinia";
+import { supabase } from '../supabase.js'
 
 interface State {
   userList: UserInfo[]
@@ -15,7 +16,7 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     loadUser() {
-      this.user = supabase.auth.user();
+      this.user = supabase.auth.user(); 
     },
     clearUser() {
       this.user = null;

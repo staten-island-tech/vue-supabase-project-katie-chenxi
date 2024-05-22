@@ -1,11 +1,11 @@
 <script setup>
-import { storeToRefs } from 'pinia';
 import { supabase } from '../supabase.js'
 import { ref } from 'vue'
+import { useAuthStore } from "@/stores/authStore";
 
-
+const store = useAuthStore();
 const loading = ref(false)
-
+const showLogin = ref(false)
 const email = ref('')
 const password = ref('')
 const name = ref('')
@@ -27,8 +27,9 @@ const handleSubmit= async () => {
       console.log(error)
     } else{
       store.user = user;
-      router.push({path: '/'})
+      //router.push({path: '/Profile'})
       console.log("Succesful: ", user)
+      showLogin.value = true;
     }
   } catch (error) {
     console.error('Error signing up:', error);
@@ -37,22 +38,80 @@ const handleSubmit= async () => {
   }
 }
 
+async function login() {
+	const { data, error } = await supabase.auth.signInWithPassword({
+		email: email.value,
+		password: password.value
+	})
+	if (error)
+	{
+		console.log(error);
+	}
+	else
+	{
+		console.log(data);
+	}
+    loading.value = false;
+}
+
+async function seeUser() {
+	const localUser = await supabase.auth.getSession();
+	console.log(localUser.data.session)
+}
+
+async function logout() {
+	const { error } = await supabase.auth.signOut();
+
+	if (error) {
+		console.log(error);
+	}
+	else {
+		console.log("Sign out success")
+	}
+}
+
 
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
-    <h1>Register</h1>
-    <label>Email <input v-model="email" required type="email" /></label>
-    <label>Password <input v-model="password" required type="password" /></label>
+   <div v-if="showLogin" class = "authCont">
+    <form @submit.prevent="login">
+    <h1>Log In</h1>
+    <label>Email <input v-model="email" /></label>
+    <label>Password <input v-model="password" /></label>
     <div>
         <input
           type="submit"
           class="button block"
+          :value="loading ? 'Loading' : 'Log In'"
+          :disabled="loading"
+        />
+      </div>
+      <button @click="showLogin = false">Don't Have An Account?</button>
+  </form>
+</div>
+<div v-else class = "authCont">
+  <form @submit.prevent="handleSubmit">
+    <h1>Register</h1>
+    <label>Email <input v-model="email" class="form"/></label>
+    <label>Password <input v-model="password" class="form"/></label>
+    <div>
+        <input
+          type="submit"
+          class="button"
           :value="loading ? 'Loading' : 'Sign Up'"
           :disabled="loading"
         />
       </div>
+       <button @click="showLogin = true">Already Have an Account?</button>
   </form>
+</div>
 </template>
 
+<style scoped>
+.authCont{
+  justify-content: space-between;
+  margin: 1em;
+  flex-direction: column;
+}
+</style>

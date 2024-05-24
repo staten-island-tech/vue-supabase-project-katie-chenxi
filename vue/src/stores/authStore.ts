@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import { supabase } from '../supabase.js'
 
+
 interface State {
   userList: UserInfo[];
   user: UserInfo | null;
@@ -25,7 +26,8 @@ export const useAuthStore = defineStore('auth', {
     clearUser() {
       this.user = null;
       this.Authenticated = false; 
-    }
+    },
+
     },
     getters: {
       isAuthenticated(state) {
@@ -37,20 +39,4 @@ export const useAuthStore = defineStore('auth', {
 interface UserInfo {
   name: string
   age: number
-}
-    
-
-/* 
-export const u = defineStore("AuthStore", {
-  state: () => ({
-   isAuthenticated: false,
-  }),
-});
-     */
-    
-   /*  interface UserInfo {
-      password: string
-      email: string
-    }
-
- */
+} 

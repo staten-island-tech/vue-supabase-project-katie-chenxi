@@ -10,7 +10,7 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue'),
       beforeEnter: (to, from, next) => {
         const authStore = useAuthStore();
-        const isAuthenticated = authStore.isAuthenticated;
+        const isAuthenticated = authStore.Authenticated;
 
         if (isAuthenticated) {
           next("/");
@@ -52,12 +52,5 @@ const router = createRouter({
   } 
 });
 
-/* router.beforeEach((to) => {
-  // ✅ This will work because the router starts its navigation after
-  // the router is installed and pinia will be installed too
-  const store = useStore()
 
-  if (to.meta.requiresAuth && !store.isLoggedIn) return '/login'
-})
-   */
 export default router

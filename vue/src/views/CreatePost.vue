@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { File } from 'buffer';
 import { supabase }  from '../supabase.js'
 import { ref } from 'vue'
 
@@ -34,7 +33,7 @@ const handleSubmit = async () => {
       const { data } = await supabase
     .storage
     .from('videos')
-    .uploadToSignedUrl('folder/cat.jpg', 'token-from-createSignedUploadUrl', File)
+    .uploadToSignedUrl('folder', 'token-from-createSignedUploadUrl', File)
       console.log('Video uploaded successfully', data)
     }
     postVideo();

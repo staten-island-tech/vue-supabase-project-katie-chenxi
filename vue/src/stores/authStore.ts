@@ -1,42 +1,65 @@
 // authStore.js
 import { defineStore } from "pinia";
 import { supabase } from '../supabase.js'
+import {ref, watch} from 'vue'
 
+export const useAuthStore = defineStore('user', () => {
+  const user = ref(null)
+  const error = ref(null)
+  const showLogin = ref(false)
 
-interface State {
-  userList: UserInfo[];
-  user: UserInfo | null;
-  Authenticated: boolean;
+  const fetchUser = async () => {
+    user.value = await supabase.auth.user();
+ }
+ const signUp = async (email, password, username) => {
+   const { error } = await supabase.auth.signUp({
+     email,
+     password,
+   },
+   {
+     data: { username: username}
+   }
+   )
+   if (error) {
+    console.log(error)
+  } else{
+
+    console.log("Succesful: ", user)
+    showLogin.value = true;
+  }
+ }
+ const signIn = async (email, password) => {
+   const { data, error } = await supabase.auth.signInWithPassword({
+     email,
+     password,
+   })
+   if (error) {
+     error.value = error.message;
+   } else {
+     user.value = data;
+   }
+ }
+ const signOut = async () => {
+   await supabase.auth.signOut();
+   user.value = null;
+ }
+
+ const getUsername = async () => {
+  if (!user.value) {
+    // Return null if the user is not logged in
+    return null;
+  }
+  const { data, error } = await supabase
+    .from("profile")
+    .select("username")
+    .eq("email", user.value.email)
+    .single();
+  if (error) {
+    // Return null if there was an error fetching the username
+    return null;
+  } else {
+    // Return the username
+    return data.username;
+  }
 }
-
-export const useAuthStore = defineStore('auth', {
-  state: (): State => {
-    return {
-      userList: [],
-      user: null,
-      Authenticated: false,
-    }
-  },
-  actions: {
-    async loadUser() {
-      const user = await supabase.auth.user();
-      this.user = user;
-      this.Authenticated = !!user;
-    },
-    clearUser() {
-      this.user = null;
-      this.Authenticated = false; 
-    },
-
-    },
-    getters: {
-      isAuthenticated(state) {
-        return state.Authenticated;
-      }
-    }
 })
-
-interface UserInfo {
-  name: string
-  age: number
-} 

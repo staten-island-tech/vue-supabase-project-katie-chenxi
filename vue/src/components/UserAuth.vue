@@ -10,53 +10,22 @@ const email = ref('')
 const password = ref('')
 const name = ref('')
 
+
+const username = store.fetchUser; 
+
 const handleSubmit= async () => {
-  try{
     loading.value = true
-    const {user, session, error}  = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value,
-      options:{
-        data: {
-          name: name.value
-        }
-      }
-    
-    });
-    if (error) {
-      console.log(error)
-    } else{
-      store.user = user;
-      //router.push({path: '/Profile'})
-      console.log("Succesful: ", user)
-      showLogin.value = true;
-    }
-  } catch (error) {
-    console.error('Error signing up:', error);
-  } finally {
-    loading.value = false;
-  }
+    store.signUp
 }
 
-async function login() {
-	const { data, error } = await supabase.auth.signInWithPassword({
-		email: email.value,
-		password: password.value
-	})
-	if (error)
-	{
-		console.log(error);
-	}
-	else
-	{
-		console.log(data);
-	}
-    loading.value = false;
+const login= async () => {
+    loading.value = true
+    store.signIn
 }
 
-async function seeUser() {
-	const localUser = await supabase.auth.getSession();
-	console.log(localUser.data.session)
+const fetchUser= async () => {
+    loading.value = true
+    store.fetchUser
 }
 
 async function logout() {
@@ -93,6 +62,7 @@ async function logout() {
 <div v-else class = "authCont">
   <form @submit.prevent="handleSubmit">
     <h1>Register</h1>
+    <label>Username <input v-model="username" class="form"/></label>
     <label>Email <input v-model="email" class="form"/></label>
     <label>Password <input v-model="password" class="form"/></label>
     <div>

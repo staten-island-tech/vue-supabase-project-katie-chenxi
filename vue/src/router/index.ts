@@ -41,7 +41,7 @@ const router = createRouter({
 
  router.beforeEach((to,from,next)=> {
   const auth = useAuthStore();
-  if (to.matched.some(r => r.meta.requireLogin) && auth === null) {
+  if (to.matched.some(r => r.meta.requireLogin) && auth.user === null) {
     if (to.path !== '/Login') {
       next('/Login'); // Redirect to login only if not already on the login page
     } else {

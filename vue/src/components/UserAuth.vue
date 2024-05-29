@@ -11,16 +11,20 @@ const password = ref('')
 const name = ref('')
 
 
-const username = store.fetchUser; 
+//const username = store.fetchUser; 
 
 const handleSubmit= async () => {
     loading.value = true
     store.signUp
+    await store.signUp(email.value, password.value);
+  loading.value = false;
 }
 
 const login= async () => {
     loading.value = true
     store.signIn
+    await store.signIn(email.value, password.value);
+  loading.value = false;
 }
 
 const fetchUser= async () => {
@@ -62,7 +66,6 @@ async function logout() {
 <div v-else class = "authCont">
   <form @submit.prevent="handleSubmit">
     <h1>Register</h1>
-    <label>Username <input v-model="username" class="form"/></label>
     <label>Email <input v-model="email" class="form"/></label>
     <label>Password <input v-model="password" class="form"/></label>
     <div>

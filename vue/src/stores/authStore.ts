@@ -9,16 +9,17 @@ export const useAuthStore = defineStore('user', () => {
   const showLogin = ref(false)
 
   const fetchUser = async () => {
-    user.value = await supabase.auth.user();
+      const currentUser = await supabase.auth.user();
+      if (currentUser) {
+        user.value = currentUser;
+      }
  }
- const signUp = async (email, password, username) => {
+ const signUp = async (email, password) => {
    const { error } = await supabase.auth.signUp({
      email,
      password,
    },
-   {
-     data: { username: username}
-   }
+
    )
    if (error) {
     console.log(error)
@@ -51,7 +52,7 @@ export const useAuthStore = defineStore('user', () => {
   }
   const { data, error } = await supabase
     .from("profile")
-    .select("username")
+    .select("id")
     .eq("email", user.value.email)
     .single();
   if (error) {
@@ -59,7 +60,7 @@ export const useAuthStore = defineStore('user', () => {
     return null;
   } else {
     // Return the username
-    return data.username;
+    return data.id;
   }
 }
 })

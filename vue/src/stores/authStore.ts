@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import { supabase } from '../supabase.js'
 import {ref, watch} from 'vue'
 
-export const useAuthStore = defineStore('user', () => {
+export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const error = ref(null)
   const showLogin = ref(false)

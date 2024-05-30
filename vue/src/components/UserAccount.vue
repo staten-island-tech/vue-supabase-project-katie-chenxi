@@ -9,6 +9,7 @@ const loading = ref(true)
 const username = ref('')
 const avatar_url = ref('')
 
+
 onMounted(() => {
   getProfile()
 })

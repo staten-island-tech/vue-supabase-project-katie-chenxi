@@ -8,23 +8,18 @@ const loading = ref(false)
 const showLogin = ref(false)
 const email = ref('')
 const password = ref('')
-const name = ref('')
 
-
-//const username = store.fetchUser; 
 
 const handleSubmit= async () => {
     loading.value = true
-    store.signUp
     await store.signUp(email.value, password.value);
   loading.value = false;
 }
 
 const login= async () => {
     loading.value = true
-    store.signIn
     await store.signIn(email.value, password.value);
-  loading.value = false;
+    loading.value = false;
 }
 
 const fetchUser= async () => {
@@ -33,14 +28,7 @@ const fetchUser= async () => {
 }
 
 async function logout() {
-	const { error } = await supabase.auth.signOut();
-
-	if (error) {
-		console.log(error);
-	}
-	else {
-		console.log("Sign out success")
-	}
+   store.auth.signOut
 }
 
 

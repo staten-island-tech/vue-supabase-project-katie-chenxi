@@ -8,14 +8,16 @@ const router = createRouter({
       path: '/',
       name: 'Home',
       component: () => import('../views/HomeView.vue'),
-     /*  beforeEnter: (to) => {
-        const authStore = useAuthStore();
-        const isAuthenticated = authStore.isAuthenticated;
+      beforeEnter: (to, from, next) => {
+        const store = useAuthStore();
 
-        if (!isAuthenticated && to.name !== "login-adm") {
-          return { name: "login-adm" };
+        if (store.user) {
+          next();
+        } else {
+          next('/LogIn');
         }
-      } */
+
+      } 
     },
     {
       path: '/Create',
@@ -25,7 +27,8 @@ const router = createRouter({
     {
       path: '/Profile',
       name: 'Profile',
-      component: () => import('../views/ProfileView.vue')
+      component: () => import('../views/ProfileView.vue'),
+      meta: { requireLogin: true }
     },
     {
       path: '/LogIn',
@@ -37,24 +40,17 @@ const router = createRouter({
 });
 
  router.beforeEach((to,from,next)=> {
-  const auth = useAuthStore();
-  if (to.matched.some(r => r.meta.requireLogin) && auth.user === null) {
+  const store = useAuthStore();
+  if (to.matched.some(r => r.meta.requireLogin) && !store.user) {
     if (to.path !== '/Login') {
       next('/Login'); // Redirect to login only if not already on the login page
     } else {
-      next(); // Allow navigation to the login page
+      next(); 
     }
-  } else {
+ } else {
     next(); // Proceed with the navigation
-  }
+  } 
 });
 
-/* router.beforeEach((to) => {
-  // ✅ This will work because the router starts its navigation after
-  // the router is installed and pinia will be installed too
-  const store = useStore()
 
-  if (to.meta.requiresAuth && !store.isLoggedIn) return '/login'
-})
-   */
 export default router

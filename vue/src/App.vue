@@ -9,7 +9,7 @@ onMounted(() => {
     session.value = data.session
   })
 
-  supabase.auth.onAuthStateChange((_, _session) => {
+  supabase.auth.onAuthStateChange((_event, _session) => {
     session.value = _session
   })
 })

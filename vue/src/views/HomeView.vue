@@ -2,6 +2,7 @@
 </script>
 
 <template>
+	<h3>HIHIHI</h3>
 </template>
 
 <style scoped>

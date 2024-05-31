@@ -1,9 +1,11 @@
 <script setup>
-import { supabase } from '../supabase.js'
+
 import { ref } from 'vue'
 import { useAuthStore } from "@/stores/authStore";
 
-const store = useAuthStore();
+
+// ✅ works because the pinia instance is now active
+const store = useAuthStore()
 const loading = ref(false)
 const showLogin = ref(false)
 const email = ref('')

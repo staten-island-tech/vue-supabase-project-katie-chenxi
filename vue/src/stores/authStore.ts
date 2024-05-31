@@ -1,7 +1,7 @@
 // authStore.js
 import { defineStore } from "pinia";
 import { supabase } from '../supabase.js'
-import {ref, watch} from 'vue'
+import {ref} from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
@@ -63,4 +63,6 @@ export const useAuthStore = defineStore('auth', () => {
     return data.id;
   }
 }
+
+return { user, fetchUser, signUp, signIn, signOut, getUsername }
 })

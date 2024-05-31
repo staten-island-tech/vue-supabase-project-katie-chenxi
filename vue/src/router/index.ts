@@ -9,11 +9,10 @@ const router = createRouter({
       name: 'Home',
       component: () => import('../views/HomeView.vue'),
       beforeEnter: (to, from, next) => {
-        const authStore = useAuthStore();
-        const isAuthenticated = authStore;
+        const store = useAuthStore();
 
-        if (authStore) {
-          next("/");
+        if (store.user) {
+          next();
         } else {
           next('/LogIn');
         }
@@ -28,7 +27,8 @@ const router = createRouter({
     {
       path: '/Profile',
       name: 'Profile',
-      component: () => import('../views/ProfileView.vue')
+      component: () => import('../views/ProfileView.vue'),
+      meta: { requireLogin: true }
     },
     {
       path: '/LogIn',
@@ -41,7 +41,7 @@ const router = createRouter({
 
  router.beforeEach((to,from,next)=> {
   const store = useAuthStore();
-  if (to.matched.some(r => r.meta.requireLogin) && store.auth.user === null) {
+  if (to.matched.some(r => r.meta.requireLogin) && !store.user) {
     if (to.path !== '/Login') {
       next('/Login'); // Redirect to login only if not already on the login page
     } else {

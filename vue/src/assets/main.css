@@ -12,11 +12,28 @@ body {
   --custom-border: 1px solid #c5559a;
   --custom-border-radius: 5px;
   --custom-spacing: 5px;
-
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
   padding: 0;
   margin: 0;
   font-family: var(--custom-font-family);
   background-color: var(--custom-bg-color);
+}
+
+#fade-in {
+  height: 300px;
+  width: 300px;
+  margin-bottom: 100px;
+  opacity: 0;
+  transform: translateY(40%);
+  transition: all 1s ease-in-out;
+}
+
+.active{
+  opacity: 4;
+  transform: translateY(0);
 }
 
 .button{

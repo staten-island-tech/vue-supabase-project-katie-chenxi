@@ -1,7 +1,7 @@
 <script setup>
-//import UserAccount from "../components/UserAccount.vue"
+//import UserProfile from "../components/UserProfile.vue"
 </script>
 
 <template>
-
+<UserProfile></UserProfile>
 </template>

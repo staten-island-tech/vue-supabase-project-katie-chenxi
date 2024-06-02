@@ -1,13 +1,21 @@
-<!-- <template>
-    <div>
-
-    </div>
+<template>
+<button class="button block" @click="signOut" :disabled="loading">Sign Out</button>
 </template>
 
 <script setup>
 import { useEffect, useState } from 'react'
 import { supabase } from './supabase.js'
 import { onMounted, ref, toRefs } from 'vue'
+import { useAuthStore } from "@/stores/authStore";
+
+const loading = ref(false)
+
+const store = useAuthStore()
+async function logout() {
+  loading.value = true
+  store.auth.signOut
+  loading.value = false
+}
 
 onMounted(() => {
   Avatar()

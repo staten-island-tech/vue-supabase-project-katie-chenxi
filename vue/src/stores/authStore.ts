@@ -5,7 +5,6 @@ import {ref} from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
-  const error = ref(null)
   const showLogin = ref(false)
 
   const fetchUser = async () => {
@@ -15,29 +14,29 @@ export const useAuthStore = defineStore('auth', () => {
       }
  }
  const signUp = async (email, password) => {
-   const { user, error: signUpError  } = await supabase.auth.signUp({
+   const { user, error} = await supabase.auth.signUp({
      email,
      password,
    },
 
    )
-   if (signUpError) {
-    console.error(signUpError)
+   if (error) {
+    console.error(error.message)
   } else{
 
     console.log("Succesful: ", user.value)
-    showLogin.value = true;
   }
  }
  const signIn = async (email, password) => {
-   const { data, error: signInError } = await supabase.auth.signInWithPassword({
+   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
    })
-   if (signInError) {
-     error.value = signInError.message;
+   if (error) {
+    console.log(error.message);
    } else {
-     user.value = data;
+    user.value = data;
+    console.log("Succesful: ", user)
    }
  }
  const signOut = async () => {

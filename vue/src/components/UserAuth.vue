@@ -29,10 +29,6 @@ const fetchUser= async () => {
     store.fetchUser
 }
 
-async function logout() {
-   store.auth.signOut
-}
-
 
 </script>
 

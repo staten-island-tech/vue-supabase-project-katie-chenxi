@@ -1,13 +1,14 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <h1>Create Post</h1>
-    <label>Title: <input v-model="title" required type="title" /></label>
-    <label>Description: <input v-model="description" required type="description" /></label>
-    <label>Video:<input name="video" @change="handleFileUpload" type="file" /></label>
+    <label>Title: <input v-model="title" required type="text" /></label>
+    <label>Description: <input v-model="description" required type="text" /></label>
+    <label>Video:<input name="video" type="file" /></label>
     <div>
       <input type="submit" class="button block" />
     </div>
   </form>
+  <h3>Please wait a few seconds for your post to upload!</h3>
 </template>
 
 <script setup lang="ts">
@@ -19,44 +20,29 @@ const description = ref('')
 
 const handleSubmit = async (event: any) => {
   try {
+    event.preventDefault();
     const tableName = 'posts';
-    const dataToPost = {
-      description: description.value,
-      title: title.value,
-    };
-    const handleFileUpload = async (event: any) => {
-      const file = event.target.files[0];
-      const { data, error } = await supabase.storage.from('videos').upload('videos/' + file.name, file, {
+    if (event.target.video.files.length > 0) {
+      const file = event.target.video.files[0];
+      await supabase.storage.from('videos').upload('videos/' + file.name, file, {
         cacheControl: '3600',
         upsert: false,
       });
+      async function postData(videoName: any) {
+        const dataToPost = {
+          description: description.value,
+          title: title.value,
+          video_name: videoName,
+          };
+        await supabase.from(tableName).upsert([dataToPost]);
+        console.log('Posted!');
+      }
+      postData(file.name);
+    } else {
+      console.error('No file selected.');
     }
-    const videoInTable = {
-        video_name: file.name,
-      };
-    async function postData() {
-      const { data } = await supabase.from(tableName).upsert([dataToPost, videoInTable])
-      console.log('Data posted successfully:', data);
-    }
-    postData();
-  }
-  catch (error) {
-    console.error('Error posting:', error);
+  } catch (error) {
+    console.error('Error posting, sorry.');
   }
 }
-/* const handleFileUpload = async (event: any) => {
-  const file = event.target.files[0];
-  const { data, error } = await supabase.storage.from('videos').upload('videos/' + file.name, file, {
-    cacheControl: '3600',
-    upsert: false,
-  });
-  const videoInTable = {
-    video_name: file.name,
-  };
-  const { videoToPost } = await supabase.from('posts').upsert([videoInTable])
-  if (error) {
-    console.error('Error uploading file:', error.message);
-  } else {
-    console.log('File uploaded successfully:', data);
-  }
-} */
+</script>

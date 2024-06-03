@@ -1,10 +1,12 @@
 // authStore.js
 import { defineStore } from "pinia";
 import { supabase } from '../supabase.js'
+import { useRouter } from 'vue-router';
 import {ref} from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
+  const router = useRouter();
 
   const fetchUser = async () => {
       const currentUser = await supabase.auth.getUser();
@@ -39,8 +41,14 @@ export const useAuthStore = defineStore('auth', () => {
    }
  }
  const signOut = async () => {
-   await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
    user.value = null;
+   if (error) {
+    console.log(error.message);
+   } else {
+    console.log("Succesful: ", user)
+    router.push('/login');
+   }
  }
 
  const getUsername = async () => {

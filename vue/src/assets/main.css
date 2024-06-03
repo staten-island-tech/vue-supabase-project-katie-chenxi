@@ -22,25 +22,16 @@ justify-content: center;
   background-color: var(--custom-bg-color);
 }
 
-#fade-in {
-  height: 300px;
-  width: 300px;
-  margin-bottom: 100px;
-  opacity: 0;
-  transform: translateY(40%);
-  transition: all 1s ease-in-out;
-}
 
-.active{
-  opacity: 4;
-  transform: translateY(0);
-}
-
-.button{
+button{
   transition: 0.5s;
 
 }
 
+button:hover {
+  background-color: rgb(255, 204, 214);
+  animation: wiggle 4s infinite;
+}
 .button:hover {
   background-color: rgb(255, 204, 214);
   animation: wiggle 4s infinite;

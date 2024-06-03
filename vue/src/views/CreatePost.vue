@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { File } from 'buffer';
 import { supabase }  from '../supabase.js'
 import { ref } from 'vue'
 

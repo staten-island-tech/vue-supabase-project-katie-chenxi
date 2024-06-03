@@ -15,18 +15,20 @@ const password = ref('')
 const handleSubmit= async () => {
     loading.value = true
     await store.signUp(email.value, password.value);
+    await fetchUser();
   loading.value = false;
 }
 
 const login= async () => {
     loading.value = true
     await store.signIn(email.value, password.value);
+    await fetchUser();
     loading.value = false;
 }
-
-const fetchUser= async () => {
-    loading.value = true
-    store.fetchUser
+const fetchUser = async () => {
+    loading.value = true;
+    await store.fetchUser(); // Make sure to call the function
+    loading.value = false;
 }
 
 

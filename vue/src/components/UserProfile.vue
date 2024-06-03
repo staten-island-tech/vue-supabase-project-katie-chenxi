@@ -1,5 +1,5 @@
 <template>
-<button class="button block" @click="signOut" :disabled="loading">Sign Out</button>
+<button class="button block" @click="logout" :disabled="loading">Sign Out</button>
 </template>
 
 <script setup>
@@ -104,4 +104,4 @@ function Avatar({ url, size, onUpload }) {
 
 <style scoped>
 
-</style> -->
+</style>

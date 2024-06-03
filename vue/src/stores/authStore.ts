@@ -4,8 +4,7 @@ import { supabase } from '../supabase.js'
 import {ref} from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(null)
-  const showLogin = ref(false)
+  let user = ref(null)
 
   const fetchUser = async () => {
       const currentUser = await supabase.auth.user();
@@ -24,7 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
     console.error(error.message)
   } else{
 
-    console.log("Succesful: ", user.value)
+    console.log("Succesful: ", user)
   }
  }
  const signIn = async (email, password) => {
@@ -35,13 +34,13 @@ export const useAuthStore = defineStore('auth', () => {
    if (error) {
     console.log(error.message);
    } else {
-    user.value = data;
+    user = data;
     console.log("Succesful: ", user)
    }
  }
  const signOut = async () => {
    await supabase.auth.signOut();
-   user.value = null;
+   user = null;
  }
 
  const getUsername = async () => {
@@ -52,7 +51,7 @@ export const useAuthStore = defineStore('auth', () => {
   const { data, error } = await supabase
     .from("profile")
     .select("id")
-    .eq("email", user.value.email)
+    .eq("email", user.email)
     .single();
   if (error) {
     // Return null if there was an error fetching the username

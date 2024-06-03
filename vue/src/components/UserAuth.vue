@@ -1,73 +1,36 @@
 <script setup>
-import { supabase } from '../supabase.js'
+
 import { ref } from 'vue'
 import { useAuthStore } from "@/stores/authStore";
 
-const store = useAuthStore();
+
+// ✅ works because the pinia instance is now active
+const store = useAuthStore()
 const loading = ref(false)
 const showLogin = ref(false)
 const email = ref('')
 const password = ref('')
-const name = ref('')
+
 
 const handleSubmit= async () => {
-  try{
     loading.value = true
-    const {user, session, error}  = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value,
-      options:{
-        data: {
-          name: name.value
-        }
-      }
-    
-    });
-    if (error) {
-      console.log(error)
-    } else{
-      store.user = user;
-      //router.push({path: '/Profile'})
-      console.log("Succesful: ", user)
-      showLogin.value = true;
-    }
-  } catch (error) {
-    console.error('Error signing up:', error);
-  } finally {
-    loading.value = false;
-  }
+    await store.signUp(email.value, password.value);
+  loading.value = false;
 }
 
-async function login() {
-	const { data, error } = await supabase.auth.signInWithPassword({
-		email: email.value,
-		password: password.value
-	})
-	if (error)
-	{
-		console.log(error);
-	}
-	else
-	{
-		console.log(data);
-	}
+const login= async () => {
+    loading.value = true
+    await store.signIn(email.value, password.value);
     loading.value = false;
 }
 
-async function seeUser() {
-	const localUser = await supabase.auth.getSession();
-	console.log(localUser.data.session)
+const fetchUser= async () => {
+    loading.value = true
+    store.fetchUser
 }
 
 async function logout() {
-	const { error } = await supabase.auth.signOut();
-
-	if (error) {
-		console.log(error);
-	}
-	else {
-		console.log("Sign out success")
-	}
+   store.auth.signOut
 }
 
 
@@ -87,8 +50,8 @@ async function logout() {
           :disabled="loading"
         />
       </div>
-      <button @click="showLogin = false">Don't Have An Account?</button>
   </form>
+  <button @click="showLogin = false">Don't Have An Account?</button>
 </div>
 <div v-else class = "authCont">
   <form @submit.prevent="handleSubmit">
@@ -103,8 +66,8 @@ async function logout() {
           :disabled="loading"
         />
       </div>
-       <button @click="showLogin = true">Already Have an Account?</button>
   </form>
+  <button @click="showLogin = true">Already Have an Account?</button>
 </div>
 </template>
 

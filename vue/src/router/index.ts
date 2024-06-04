@@ -16,13 +16,13 @@ const router = createRouter({
         } else {
           next('/LogIn');
         }
-
       } 
     },
     {
       path: '/Create',
       name: 'Create',
-      component: () => import('../views/CreatePost.vue')
+      component: () => import('../views/CreatePost.vue'),
+      meta: { requireLogin: true }
     },
     {
       path: '/Profile',

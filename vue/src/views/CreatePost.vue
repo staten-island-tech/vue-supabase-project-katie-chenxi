@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { supabase } from '../supabase.js'
+import { supabase }  from '../supabase.js'
 import { ref } from 'vue'
 
 const title = ref('')

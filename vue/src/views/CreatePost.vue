@@ -24,10 +24,12 @@ const handleSubmit = async (event: any) => {
     const tableName = 'posts';
     if (event.target.video.files.length > 0) {
       const file = event.target.video.files[0];
-      await supabase.storage.from('public/videos').upload('videos/' + file.name, file, {
-        cacheControl: '3600',
-        upsert: false,
-      });
+      const { data, error } = await supabase.storage.from('videos').upload('videos/', file)
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(data)
+      }
       async function postData(videoName: string) {
         const dataToPost = {
           description: description.value,

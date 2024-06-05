@@ -6,6 +6,7 @@ import {ref} from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
+  const usersname = ref(null)
   const router = useRouter();
 
   const fetchUser = async () => {
@@ -28,16 +29,20 @@ export const useAuthStore = defineStore('auth', () => {
     console.log("Succesful: ", user)
   }
  }
- const signIn = async (email, password) => {
+ const signIn = async (email, password, username) => {
    const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
+    data:{
+      username
+    }
    })
    if (error) {
     console.log(error.message);
    } else {
     user.value = data;
-    console.log("Succesful: ", user)
+    usersname.value = data.username
+    console.log("Succesful: ", user, usersname)
    }
  }
  const signOut = async () => {

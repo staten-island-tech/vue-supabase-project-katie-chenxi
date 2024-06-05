@@ -1,4 +1,5 @@
 <template>
+<h2>Hello {{ store.usersname }}</h2>
 <button class="button block" @click="logout" :disabled="loading">Sign Out</button>
 </template>
 

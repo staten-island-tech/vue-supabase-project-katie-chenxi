@@ -22,7 +22,8 @@ const router = createRouter({
     {
       path: '/Create',
       name: 'Create',
-      component: () => import('../views/CreatePost.vue')
+      component: () => import('../views/CreatePost.vue'),
+      meta: { requireLogin: true }
     },
     {
       path: '/Profile',

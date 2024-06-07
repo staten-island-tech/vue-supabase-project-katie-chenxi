@@ -3,30 +3,38 @@ html,
 body {
   --custom-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  --custom-bg-color: rgb(253, 233, 237);
+  --custom-bg-color: rgb(255, 255, 255);
   --custom-panel-color: #ba4646;
   --custom-box-shadow: 0 2px 8px 0 rgba(217, 73, 150, 0.8);
-  --custom-color: #b43a77;
+  --custom-color: #8a1851;
   --custom-color-brand: #af24b4;
-  --custom-color-secondary: #8a2658;
+  --custom-color-secondary: #741745;
   --custom-border: 1px solid #c5559a;
   --custom-border-radius: 5px;
   --custom-spacing: 5px;
-
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
   padding: 0;
   margin: 0;
   font-family: var(--custom-font-family);
   background-color: var(--custom-bg-color);
 }
 
-.button{
+
+button{
   transition: 0.5s;
-  animation: wiggle 5s infinite;
+
 }
 
+button:hover {
+  background-color: rgb(255, 204, 214);
+  animation: wiggle 4s infinite;
+}
 .button:hover {
   background-color: rgb(255, 204, 214);
-
+  animation: wiggle 4s infinite;
 }
 input:hover{
   background-color: rgb(251, 212, 219);

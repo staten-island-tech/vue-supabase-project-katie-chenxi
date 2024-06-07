@@ -24,7 +24,7 @@
       const tableName = 'posts';
       if (event.target.video.files.length > 0) {
         const file = event.target.video.files[0];
-        await supabase.storage.from('public/videos').upload('videos/' + file.name, file, {
+        await supabase.storage.from('videos').upload(file.name, file, {
           cacheControl: '3600',
           upsert: false,
         });

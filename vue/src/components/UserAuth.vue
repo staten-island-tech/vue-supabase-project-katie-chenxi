@@ -39,7 +39,7 @@ const fetchUser = async () => {
     <form @submit.prevent="login">
     <h1>Log In</h1>
     <label>Email <input v-model="email" /></label>
-    <label>Password <input v-model="password" /></label>
+    <label>Password <input type="password" v-model="password" /></label>
     <div>
         <input
           type="submit"

@@ -57,7 +57,6 @@ const fetchUser = async () => {
     <h1>Register</h1>
     <label>Email <input type = " email" v-model="email" class="form"/></label>
     <label>Password <input type="password" v-model="password" class="form"/></label>
-    <label>Username <input type = "username" v-model="username" class="form"/></label>
     <div>
         <input
           type="submit"

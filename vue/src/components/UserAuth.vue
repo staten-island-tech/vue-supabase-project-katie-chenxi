@@ -10,11 +10,12 @@ const loading = ref(false)
 const showLogin = ref(false)
 const email = ref('')
 const password = ref('')
+const username = ref('')
 
 
 const handleSubmit= async () => {
     loading.value = true
-    await store.signUp(email.value, password.value);
+    await store.signUp(email.value, password.value, username.value);
     await fetchUser();
   loading.value = false;
 }
@@ -54,8 +55,9 @@ const fetchUser = async () => {
 <div v-else class = "authCont">
   <form @submit.prevent="handleSubmit">
     <h1>Register</h1>
-    <label>Email <input v-model="email" class="form"/></label>
+    <label>Email <input type = " email" v-model="email" class="form"/></label>
     <label>Password <input type="password" v-model="password" class="form"/></label>
+    <label>Username <input type = "username" v-model="username" class="form"/></label>
     <div>
         <input
           type="submit"

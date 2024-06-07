@@ -10,6 +10,7 @@
           <p>{{ post.description }}</p>
           <video controls :src="post.videoUrl ?? undefined"></video>
           <button type="button" @click="incrementLikes(post)">Likes: {{ post.likes }}</button>
+          <button type="button" @click="incrementLikesNeg(post)">Delete Likes: {{ post.likes }}</button>
         </div>
     </div>
   </template>
@@ -42,6 +43,18 @@
         throw new Error(error.message);
       }
       post.likes++;
+    } catch (error) {
+      console.error('Error updating like count:', error);
+    }
+  }
+
+  const incrementLikesNeg = async (post: any) => {
+    try {
+      const { error } = await supabase.from('posts').update({ likes: post.likes -1 }).eq('id', post.id);
+      if (error) {
+        throw new Error(error.message);
+      }
+      post.likes--;
     } catch (error) {
       console.error('Error updating like count:', error);
     }

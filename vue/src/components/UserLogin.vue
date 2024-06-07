@@ -18,10 +18,6 @@ async function login() {
 	{
 		console.log(error);
 	}
-	else
-	{
-		console.log(data);
-	}
     loading.value = false;
 }
 

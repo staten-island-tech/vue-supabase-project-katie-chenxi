@@ -6,6 +6,7 @@
       <button @click="sortByOldest">Oldest</button>
         <div v-for="post in sortedPosts" :key="post.id">
           <h2>{{ post.title }}</h2>
+          <h3>Created by user: {{ post.user_id }}</h3>
           <p>{{ post.description }}</p>
           <video controls :src="post.videoUrl ?? undefined"></video>
           <button type="button" @click="incrementLikes(post)">Likes: {{ post.likes }}</button>
@@ -17,7 +18,7 @@
   import { supabase } from '../supabase.js'
   import { ref, onMounted } from 'vue'
   
-  const posts = ref<{ id: number; title: string; description: string; video_name: string; videoUrl: string | null; likes: number }[]>([]);
+  const posts = ref<{ id: number; title: string; description: string; video_name: string; videoUrl: string | null; likes: number; user_id: string }[]>([]);
   const sortedPosts = ref(posts);
   
   const fetchPosts = async () => {
@@ -73,8 +74,14 @@
   }
 </script>
   
-<style>
+<style scoped>
   video {
-    width: 50%;
+    width: 90%;
+  }
+  button {
+    margin: 0.2em;
+  }
+  div {
+    margin: 4em;
   }
   </style>

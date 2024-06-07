@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 import { supabase } from '../supabase.js'
 import { useRouter } from 'vue-router';
 import {ref} from 'vue'
-
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const router = useRouter();
@@ -23,9 +22,6 @@ export const useAuthStore = defineStore('auth', () => {
    )
    if (error) {
     console.error(error.message)
-  } else{
-
-    console.log("Succesful: ", user)
   }
  }
  const signIn = async (email, password) => {
@@ -37,7 +33,6 @@ export const useAuthStore = defineStore('auth', () => {
     console.log(error.message);
    } else {
     user.value = data;
-    console.log("Succesful: ", user)
    }
  }
  const signOut = async () => {
@@ -46,7 +41,6 @@ export const useAuthStore = defineStore('auth', () => {
    if (error) {
     console.log(error.message);
    } else {
-    console.log("Succesful: ", user)
     router.push('/login');
    }
  }
@@ -70,6 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
     return data.id;
   }
 }
+
 
 return { user, fetchUser, signUp, signIn, signOut, getUsername }
 })

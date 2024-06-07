@@ -75,4 +75,7 @@ const fetchUser = async () => {
   margin: 1em;
   flex-direction: column;
 }
+label {
+  margin:1em;
+}
 </style>

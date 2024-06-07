@@ -1,5 +1,6 @@
 <template>
     <div>
+      <UserProfile></UserProfile>
       <h2>Dashboard</h2>
       <p>Average Likes: {{ formattedAverageLikes }}</p>
     </div>
@@ -7,6 +8,7 @@
   
   <script setup lang="ts">
   import { ref, watch, computed } from 'vue';
+  import UserProfile from '../components/UserProfile.vue'
   
   const averageLikes = ref(5.75); 
   

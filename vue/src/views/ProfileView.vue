@@ -1,22 +1,25 @@
 <template>
-    <div>
+    <div class="main">
       <UserProfile></UserProfile>
-      <h2>Dashboard</h2>
-      <p>Average Likes: {{ formattedAverageLikes }}</p>
+      <UserAccount></UserAccount>
+      <UserPosts></UserPosts>
     </div>
   </template>
   
-  <script setup lang="ts">
-  import { ref, watch, computed } from 'vue';
+  <script setup>
+  import { supabase } from '../supabase.js'
   import UserProfile from '../components/UserProfile.vue'
-  
-  const averageLikes = ref(5.75); 
-  
-  const formattedAverageLikes = computed(() => {
-    return averageLikes.value.toFixed(2); 
-  });
-  
-  watch(averageLikes, (newVal) => {
-    console.log('Average likes updated:', newVal);
-  });
+  import UserAccount from '../components/UserAccount.vue'
+  import UserPosts from '../components/UserPosts.vue'
+  import { onMounted } from 'vue'
+
   </script>
+
+  <style scoped>
+  .main {
+    width: 50%;
+    align-items: center;
+    margin: 0 auto;
+    padding: 2em;
+  }
+</style>

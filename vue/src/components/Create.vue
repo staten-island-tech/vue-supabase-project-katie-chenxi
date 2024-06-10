@@ -18,14 +18,15 @@
   <script setup lang="ts">
   import { supabase } from '../supabase.js'
   import { ref } from 'vue'
-  
   const title = ref('')
   const description = ref('')
-  
+
   const postSubmit = async (event: any) => {
-    try {
-      event.preventDefault()
-      const tableName = 'posts'
+  try {
+    event.preventDefault()
+    const tableName = 'posts'
+    const user = await supabase.auth.getUser()
+    if (user) {
       if (event.target.video.files.length > 0) {
         const file = event.target.video.files[0]
         await supabase.storage.from('videos').upload(file.name, file, {
@@ -37,20 +38,23 @@
             description: description.value,
             title: title.value,
             video_name: videoName,
-            };
+            user_id: user.data.user.id,
+          };
           await supabase.from(tableName).upsert([dataToPost]);
           console.log('File name:', file.name);
           console.log('Posted!');
         }
         postData(file.name);
-        console.log('Posted!')
       } else {
         console.error('No file selected.')
       }
-    } catch (error) {
-      console.error('Error posting, sorry.')
+    } else {
+      console.error('User not authenticated.')
     }
+  } catch (error) {
+    console.error('Error posting, sorry.', error.message)
   }
+}
   </script>
 
   <style scoped>

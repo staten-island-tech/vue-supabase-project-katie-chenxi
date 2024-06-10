@@ -22,4 +22,4 @@
     margin: 0 auto;
     padding: 2em;
   }
-</style>
+</style>../../supabase.js

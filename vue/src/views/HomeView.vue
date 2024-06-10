@@ -129,4 +129,4 @@ p {
   border-radius: 40px;
   padding: 1em;
 }
-</style>
+</style>../../supabase.js

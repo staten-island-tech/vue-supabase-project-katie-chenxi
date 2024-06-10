@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { supabase } from '../supabase'
+import { supabase } from '../supabase.js'
 import { ref, onMounted } from 'vue'
 
 const posts = ref<{ id: number; title: string; description: string; video_name: string; videoUrl: string | null; likes: number; user_id: string; user_name: string }[]>([]);
@@ -64,3 +64,4 @@ video {
 }
 
 </style>
+../../supabase.js

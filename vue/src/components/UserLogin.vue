@@ -60,4 +60,4 @@ async function logout() {
       </div>
     </div>
   </form>
-</template>
+</template>../../supabase

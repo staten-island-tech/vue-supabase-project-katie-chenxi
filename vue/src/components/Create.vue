@@ -64,4 +64,4 @@
   label {
     margin: 1em;
   }
-</style>
+</style>../../supabase.js

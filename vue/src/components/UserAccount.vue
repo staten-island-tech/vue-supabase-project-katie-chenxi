@@ -78,4 +78,4 @@ async function updateProfile() {
 label {
   font-size: 20px;
 }
-</style>
+</style>../../supabase
